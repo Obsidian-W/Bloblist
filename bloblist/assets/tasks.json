@@ -1,0 +1,29 @@
+[
+    {
+        "task" : "Take care of plants",
+        "xp": 5,
+        "strength": 0,
+        "agility": 0,
+        "mind": 2,
+        "willpower": 1,
+        "charisma": 0
+    },
+    {
+        "task": "Daily physical activity",
+        "xp": 10,
+        "strength": 2,
+        "agility": 2,
+        "mind": 0,
+        "willpower": 1,
+        "charisma": 1
+    },
+    {
+        "task": "Ask your lover out",
+        "xp": 15,
+        "strength": 0,
+        "agility": 0,
+        "mind": 1,
+        "willpower": 3,
+        "charisma": 3
+    }
+]
