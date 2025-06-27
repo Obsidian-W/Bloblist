@@ -1,10 +1,10 @@
 import 'package:go_router/go_router.dart'; // Best router for flutter
+import 'package:logging/logging.dart';
 import 'package:provider/provider.dart'; // For ease of component reuse
 import 'package:flutter/cupertino.dart'; // To get the build context
 
 import 'routes.dart';
 import '../data/repositories/auth/auth_repository.dart';
-import '../data/repositories/auth/auth_repository_dev.dart';
 import '../ui/all.dart';
 
 GoRouter router(AuthRepository authRepository) => GoRouter(
@@ -61,12 +61,16 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
 
 // From https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/redirection.dart
 Future<String?> _redirect(BuildContext context, GoRouterState state) async {
-  final loggedIn = await context.read<AuthRepository>().isAuthenticated;
-  final loggingIn = state.matchedLocation == Routes.login;
+  final authRepository = context.read<AuthRepository>();
+  final loggedIn = authRepository.isAuthenticatedSync;
+
+  print("PRINT: IsloggedIn (memory): $loggedIn");
+  Logger('Test').info("IsloggedIn (memory): $loggedIn");
+
   if (!loggedIn) {
     return Routes.login;
   }
-  if (loggingIn) {
+  if (state.matchedLocation == Routes.login) {
     return Routes.home;
   }
   return null;

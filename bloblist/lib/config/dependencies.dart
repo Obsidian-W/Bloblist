@@ -19,9 +19,7 @@ List<SingleChildWidget> _sharedProviders = [];
 
 List<SingleChildWidget> get providersLocal {
   return [
-    ChangeNotifierProvider<AuthRepository>(
-      create: (context) => AuthRepositoryDev(),
-    ),
+    ChangeNotifierProvider<AuthRepository>(create: (_) => AuthRepositoryDev()),
     Provider.value(value: LocalDataService()),
     Provider(
       create: (context) =>

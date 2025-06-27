@@ -35,6 +35,16 @@ class _HomeScreenState extends State<HomeScreen> {
           children: <Widget>[
             const Text('You have pushed the button this many times:'),
             Text('0.0', style: Theme.of(context).textTheme.headlineMedium),
+            const SizedBox(height: 32),
+            ElevatedButton(
+              onPressed: () async {
+                await widget.viewModel.logout(context);
+                if (mounted) {
+                  Navigator.of(context).pushReplacementNamed('/login');
+                }
+              },
+              child: const Text('Logout'),
+            ),
           ],
         ),
       ),
