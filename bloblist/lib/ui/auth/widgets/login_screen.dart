@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -20,12 +22,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _email = TextEditingController(
-    text: 'monemail@example.com',
-  );
-  final TextEditingController _password = TextEditingController(
-    text: 'mySecretPassword',
-  );
+  final TextEditingController _email = TextEditingController(text: '');
+  final TextEditingController _password = TextEditingController(text: '');
+  bool _isObscured = true;
 
   @override
   void initState() {
@@ -48,39 +47,172 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final Color accentColor = Theme.of(context).colorScheme.primary;
+
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      extendBody: true,
+      body: Stack(
         children: [
-          const Card(),
-          Padding(
-            padding: EdgeInsetsGeometry.symmetric(
-              horizontal: Dimens.paddingHorizontal,
-              vertical: Dimens.paddingVertical,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                TextField(controller: _email),
-                const SizedBox(height: Dimens.paddingVertical),
-                TextField(controller: _password, obscureText: true),
-                const SizedBox(height: Dimens.paddingVertical),
-                ListenableBuilder(
-                  listenable: widget.viewModel.login,
-                  builder: (context, _) {
-                    return FilledButton(
-                      onPressed: () {
-                        widget.viewModel.login.execute((
-                          _email.value.text,
-                          _password.value.text,
-                        ));
-                      },
-                      child: Text("Login"),
-                    );
-                  },
+          // 1. The Background Image
+          Positioned.fill(
+            // Makes the image fill the entire Stack area
+            child: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('images/bg_slime.png'),
+                  repeat: ImageRepeat.repeat,
                 ),
-              ],
+              ),
+            ),
+          ),
+          Positioned.fill(
+            // Makes the blur filter cover the entire Stack area
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
+              child: Container(color: Colors.black.withOpacity(0.8)),
+            ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const Card(),
+              Padding(
+                padding: EdgeInsetsGeometry.symmetric(
+                  horizontal: Dimens.paddingHorizontal,
+                  vertical: Dimens.paddingVertical,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      "Welcome to Bloblist",
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      style: TextStyle(
+                        shadows: [
+                          Shadow(
+                            blurRadius: 4.0,
+                            color: Colors.white,
+                            offset: Offset(3.0, 0.0),
+                          ),
+                          Shadow(
+                            blurRadius: 4.0,
+                            color: Colors.white,
+                            offset: Offset(-3.0, 0.0),
+                          ),
+                          Shadow(
+                            blurRadius: 4.0,
+                            color: Colors.white,
+                            offset: Offset(0.0, 3.0),
+                          ),
+                          Shadow(
+                            blurRadius: 4.0,
+                            color: Colors.white,
+                            offset: Offset(0.0, -3.0),
+                          ),
+                          Shadow(
+                            blurRadius: 6.0,
+                            color: Colors.white.withOpacity(0.6),
+                            offset: Offset.zero,
+                          ),
+                        ],
+                        color: accentColor,
+                        fontSize: 36.0,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'GuavaCandy',
+                        letterSpacing: 6.0,
+                      ),
+                    ),
+                    const SizedBox(height: Dimens.doublePaddingVertical),
+                    TextField(
+                      controller: _email,
+                      obscureText: false,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Email',
+                        labelStyle: TextStyle(
+                          color: accentColor,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: Dimens.doublePaddingVertical),
+                    TextField(
+                      controller: _password,
+                      obscureText: _isObscured,
+                      obscuringCharacter: "☺",
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Password',
+                        labelStyle: TextStyle(
+                          color: accentColor,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        suffixIcon: IconButton(
+                          padding: const EdgeInsets.all(0),
+                          iconSize: 20.0,
+                          icon: _isObscured
+                              ? const Icon(
+                                  Icons.visibility_off,
+                                  color: Colors.grey,
+                                )
+                              : const Icon(
+                                  Icons.visibility,
+                                  color: Colors.black,
+                                ),
+                          onPressed: () {
+                            setState(() {
+                              _isObscured = !_isObscured;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: Dimens.paddingVertical),
+                    ListenableBuilder(
+                      listenable: widget.viewModel.login,
+                      builder: (context, _) {
+                        return FilledButton(
+                          onPressed: () {
+                            widget.viewModel.login.execute((
+                              _email.value.text,
+                              _password.value.text,
+                            ));
+                          },
+                          child: Text("Login"),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: Dimens.paddingVertical,
+            child: Center(
+              child: TextButton(
+                onPressed: () {
+                  context.push(Routes.signup);
+                },
+                child: const Text(
+                  "Don't have an account? Sign up",
+                  style: TextStyle(fontWeight: FontWeight.w500),
+                ),
+              ),
             ),
           ),
         ],

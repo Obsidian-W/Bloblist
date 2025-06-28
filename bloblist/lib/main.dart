@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,20 @@ void main() {
   Logger('Test').info('Logger is working!'); // Test log
 
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarBrightness: Brightness.dark,
+      statusBarIconBrightness: Brightness.light,
+
+      systemNavigationBarColor: Colors.deepPurple,
+      systemNavigationBarIconBrightness: Brightness.light,
+    ),
+  );
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(MultiProvider(providers: providersLocal, child: const BlobListApp()));
 }

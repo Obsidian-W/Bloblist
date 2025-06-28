@@ -24,8 +24,24 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
     GoRoute(
       path: Routes.signup,
       builder: (context, state) {
-        return LoginScreen(
-          viewModel: LoginViewModel(authRepository: context.read()),
+        return SignupScreen(
+          viewModel: SignupViewModel(authRepository: context.read()),
+        );
+      },
+    ),
+    GoRoute(
+      path: Routes.signup,
+      pageBuilder: (context, state) {
+        return CustomTransitionPage<void>(
+          key: state.pageKey,
+          child: SignupScreen(
+            viewModel: SignupViewModel(authRepository: context.read()),
+          ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(opacity: animation, child: child);
+          },
+          transitionDuration: const Duration(milliseconds: 300),
+          reverseTransitionDuration: const Duration(milliseconds: 200),
         );
       },
     ),
@@ -64,14 +80,17 @@ Future<String?> _redirect(BuildContext context, GoRouterState state) async {
   final authRepository = context.read<AuthRepository>();
   final loggedIn = authRepository.isAuthenticatedSync;
 
-  print("PRINT: IsloggedIn (memory): $loggedIn");
-  Logger('Test').info("IsloggedIn (memory): $loggedIn");
+  final loggingIn = state.matchedLocation == Routes.login;
+  final signingUp = state.matchedLocation == Routes.signup;
 
-  if (!loggedIn) {
+  // If not logged in, allow access to login and signup or redirect to login
+  if (!loggedIn && !(loggingIn || signingUp)) {
     return Routes.login;
   }
-  if (state.matchedLocation == Routes.login) {
+  // If logged in and trying to access auth -> redirect to home
+  if (loggedIn && (loggingIn || signingUp)) {
     return Routes.home;
   }
+  // No redirect
   return null;
 }

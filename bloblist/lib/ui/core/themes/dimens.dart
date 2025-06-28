@@ -9,7 +9,10 @@ abstract final class Dimens {
 
   // Generic paddings used to separate UI items
   static const paddingHorizontal = 20.0;
+  static const doublePaddingHorizontal = 40.0;
+
   static const paddingVertical = 24.0;
+  static const doublePaddingVertical = 48.0;
 
   static const Dimens desktop = _DimensDesktop();
   static const Dimens mobile = _DimensMobile();
