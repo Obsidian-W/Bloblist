@@ -119,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ],
                         color: accentColor,
-                        fontSize: 36.0,
+                        fontSize: 42.0,
                         fontWeight: FontWeight.w700,
                         fontFamily: 'GuavaCandy',
                         letterSpacing: 6.0,
@@ -129,6 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     TextField(
                       controller: _email,
                       obscureText: false,
+                      autofocus: true,
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16.0,
@@ -197,6 +198,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         );
                       },
                     ),
+                    const SizedBox(height: Dimens.paddingVertical),
                   ],
                 ),
               ),

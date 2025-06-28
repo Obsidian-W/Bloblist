@@ -17,7 +17,10 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _email = TextEditingController(text: '');
+  final TextEditingController _phone = TextEditingController(text: '');
   final TextEditingController _password = TextEditingController(text: '');
+  final _formKey = GlobalKey<FormState>();
+
   bool _isObscured = true;
 
   @override
@@ -63,81 +66,139 @@ class _SignupScreenState extends State<SignupScreen> {
                   horizontal: Dimens.paddingHorizontal,
                   vertical: Dimens.paddingVertical,
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    TextField(
-                      controller: _email,
-                      obscureText: false,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w700,
-                      ),
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: AppLocalizations.of(context)!.textEmail,
-                        labelStyle: TextStyle(
-                          color: accentColor,
-                          fontWeight: FontWeight.w500,
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      TextFormField(
+                        controller: _email,
+                        autofocus: true,
+                        obscureText: false,
+                        keyboardType: TextInputType.emailAddress,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w700,
                         ),
-                      ),
-                    ),
-                    const SizedBox(height: Dimens.doublePaddingVertical),
-                    TextField(
-                      controller: _password,
-                      obscureText: _isObscured,
-                      obscuringCharacter: "☺",
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: AppLocalizations.of(context)!.textPassword,
-                        labelStyle: TextStyle(
-                          color: accentColor,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        suffixIcon: IconButton(
-                          padding: const EdgeInsets.all(0),
-                          iconSize: 20.0,
-                          icon: _isObscured
-                              ? const Icon(
-                                  Icons.visibility_off,
-                                  color: Colors.grey,
-                                )
-                              : const Icon(
-                                  Icons.visibility,
-                                  color: Colors.black,
-                                ),
-                          onPressed: () {
-                            setState(() {
-                              _isObscured = !_isObscured;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: Dimens.paddingVertical),
-                    ListenableBuilder(
-                      listenable: widget.viewModel.signup,
-                      builder: (context, _) {
-                        return FilledButton(
-                          onPressed: () {
-                            widget.viewModel.signup.execute((
-                              _email.value.text,
-                              _password.value.text,
-                            ));
-                          },
-                          child: Text(
-                            AppLocalizations.of(context)!.actionSignup,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: AppLocalizations.of(context)!.textEmail,
+                          labelStyle: TextStyle(
+                            color: accentColor,
+                            fontWeight: FontWeight.w500,
                           ),
-                        );
-                      },
-                    ),
-                  ],
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return AppLocalizations.of(
+                              context,
+                            )!.errorEmailRequired;
+                          }
+                          // Simple email regex
+                          final emailRegex = RegExp(
+                            r'^[^@\s]+@[^@\s]+\.[^@\s]+$',
+                          );
+                          if (!emailRegex.hasMatch(value)) {
+                            return AppLocalizations.of(
+                              context,
+                            )!.errorEmailInvalid;
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: Dimens.doublePaddingVertical),
+                      TextFormField(
+                        controller: _phone,
+                        obscureText: false,
+                        keyboardType: TextInputType.phone,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: AppLocalizations.of(context)!.textPhone,
+                          labelStyle: TextStyle(
+                            color: accentColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return AppLocalizations.of(
+                              context,
+                            )!.errorPhoneRequired;
+                          }
+                          // Simple phone validation: digits only and length between 7 and 15
+                          final phoneRegex = RegExp(r'^\+?[0-9]{7,15}$');
+                          if (!phoneRegex.hasMatch(value)) {
+                            return AppLocalizations.of(
+                              context,
+                            )!.errorPhoneInvalid;
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: Dimens.doublePaddingVertical),
+                      TextFormField(
+                        controller: _password,
+                        obscureText: _isObscured,
+                        obscuringCharacter: "☺",
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: AppLocalizations.of(context)!.textPassword,
+                          labelStyle: TextStyle(
+                            color: accentColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          suffixIcon: IconButton(
+                            padding: const EdgeInsets.all(0),
+                            iconSize: 20.0,
+                            icon: _isObscured
+                                ? const Icon(
+                                    Icons.visibility_off,
+                                    color: Colors.grey,
+                                  )
+                                : const Icon(
+                                    Icons.visibility,
+                                    color: Colors.black,
+                                  ),
+                            onPressed: () {
+                              setState(() {
+                                _isObscured = !_isObscured;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: Dimens.paddingVertical),
+                      ListenableBuilder(
+                        listenable: widget.viewModel.signup,
+                        builder: (context, _) {
+                          return FilledButton(
+                            onPressed: () {
+                              if (_formKey.currentState?.validate() ?? false) {
+                                widget.viewModel.signup.execute((
+                                  _email.text,
+                                  _password.text,
+                                ));
+                              }
+                            },
+                            child: Text(
+                              AppLocalizations.of(context)!.actionSignup,
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

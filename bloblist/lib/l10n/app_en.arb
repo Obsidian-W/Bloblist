@@ -4,19 +4,23 @@
     "@textWelcome": {
         "description": "loginScreen"
     },
-    "textEmail": "email",
+    "textEmail": "Email",
     "@textEmail": {
         "description": "loginScreen, signupScreen"
     },
-    "textPassword": "password",
+    "textPhone": "Phone no.",
+    "@textPhone": {
+        "description": "signupScreen"
+    },
+    "textPassword": "Password",
     "@textPassword": {
         "description": "loginScreen, signupScreen"
     },
-    "goLogin": "Don't have an account? Sign up",
+    "goLogin": "Have an account? Log in",
     "@goLogin": {
         "description": "loginScreen"
     },
-    "goSignup": "Have an account? Log in",
+    "goSignup": "Don't have an account? Sign up",
     "@goSignup": {
         "description": "signupScreen"
     },
@@ -59,5 +63,21 @@
     "actionAdd": "Add",
     "@actionAdd": {
         "description": "homeScreen, todolistView"
+    },
+    "errorEmailRequired": "Error: Missing email",
+    "@errorEmailRequired": {
+        "description": "signupScreen"
+    },
+    "errorEmailInvalid": "Error: Invalid email",
+    "@errorEmailInvalid": {
+        "description": "signupScreen"
+    },
+    "errorPhoneRequired": "Error: missing phone",
+    "@errorPhoneRequired": {
+        "description": "signupScreen"
+    },
+    "errorPhoneInvalid": "Error: Invalid phone",
+    "@errorPhoneInvalid": {
+        "description": "signupScreen"
     }
 }

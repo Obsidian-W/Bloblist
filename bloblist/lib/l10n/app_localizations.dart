@@ -107,25 +107,31 @@ abstract class AppLocalizations {
   /// loginScreen, signupScreen
   ///
   /// In en, this message translates to:
-  /// **'email'**
+  /// **'Email'**
   String get textEmail;
+
+  /// signupScreen
+  ///
+  /// In en, this message translates to:
+  /// **'Phone no.'**
+  String get textPhone;
 
   /// loginScreen, signupScreen
   ///
   /// In en, this message translates to:
-  /// **'password'**
+  /// **'Password'**
   String get textPassword;
 
   /// loginScreen
   ///
   /// In en, this message translates to:
-  /// **'Don\'t have an account? Sign up'**
+  /// **'Have an account? Log in'**
   String get goLogin;
 
   /// signupScreen
   ///
   /// In en, this message translates to:
-  /// **'Have an account? Log in'**
+  /// **'Don\'t have an account? Sign up'**
   String get goSignup;
 
   /// loginScreen
@@ -187,6 +193,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add'**
   String get actionAdd;
+
+  /// signupScreen
+  ///
+  /// In en, this message translates to:
+  /// **'Error: Missing email'**
+  String get errorEmailRequired;
+
+  /// signupScreen
+  ///
+  /// In en, this message translates to:
+  /// **'Error: Invalid email'**
+  String get errorEmailInvalid;
+
+  /// signupScreen
+  ///
+  /// In en, this message translates to:
+  /// **'Error: missing phone'**
+  String get errorPhoneRequired;
+
+  /// signupScreen
+  ///
+  /// In en, this message translates to:
+  /// **'Error: Invalid phone'**
+  String get errorPhoneInvalid;
 }
 
 class _AppLocalizationsDelegate

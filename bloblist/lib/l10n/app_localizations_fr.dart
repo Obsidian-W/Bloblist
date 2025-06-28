@@ -12,10 +12,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get textWelcome => 'Bienvenue sur BlobList !';
 
   @override
-  String get textEmail => '@email';
+  String get textEmail => '@Email';
 
   @override
-  String get textPassword => 'mot de passe';
+  String get textPhone => 'N° Tel.';
+
+  @override
+  String get textPassword => 'Mot de passe';
 
   @override
   String get goLogin => 'Pas de compte ? Inscrivez-vous';
@@ -52,4 +55,16 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get actionAdd => 'Ajouter';
+
+  @override
+  String get errorEmailRequired => 'Erreur: Email manquant';
+
+  @override
+  String get errorEmailInvalid => 'Erreur: Email invalide';
+
+  @override
+  String get errorPhoneRequired => 'Erreur: Tel manquant';
+
+  @override
+  String get errorPhoneInvalid => 'Erreur: Tel invalide';
 }
