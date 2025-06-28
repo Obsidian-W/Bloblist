@@ -1,0 +1,12 @@
+{
+    "textWelcome": "Bienvenue sur BlobList !",
+    "textEmail": "@email",
+    "textPassword": "mot de passe",
+    "goLogin": "Pas de compte ? Inscrivez-vous",
+    "goSignup": "Vous avez un compte ? Connectez-vous",
+    "errorLogin": "Connexion impossible",
+    "errorRetry": "Réessayer",
+    "actionLogin": "Connexion",
+    "actionSignup": "Inscription",
+    "alertDoubleBack": "Press back again to exit"
+}

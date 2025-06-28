@@ -1,4 +1,5 @@
 import 'package:back_button_interceptor/back_button_interceptor.dart';
+import 'package:bloblist/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 //import 'package:go_router/go_router.dart';
 
@@ -41,9 +42,9 @@ class _HomeScreenState extends State<HomeScreen> {
         now.difference(_lastPressed!) > const Duration(seconds: 2)) {
       _lastPressed = now;
       ScaffoldMessenger.of(_scaffoldContext).removeCurrentSnackBar();
-      ScaffoldMessenger.of(
-        _scaffoldContext,
-      ).showSnackBar(const SnackBar(content: Text('Press back again to exit')));
+      ScaffoldMessenger.of(_scaffoldContext).showSnackBar(
+        SnackBar(content: Text(AppLocalizations.of(context)!.alertDoubleBack)),
+      );
       return true; // Prevent pop
     }
     return false; //Exit
@@ -73,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.of(context).pushReplacementNamed('/login');
                     }
                   },
-                  child: const Text('Logout'),
+                  child: Text(AppLocalizations.of(context)!.actionLogout),
                 ),
               ],
             ),

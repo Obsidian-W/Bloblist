@@ -4,6 +4,7 @@
 
 import 'dart:ui';
 
+import 'package:bloblist/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -86,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      "Welcome to Bloblist",
+                      AppLocalizations.of(context)!.textWelcome,
                       textAlign: TextAlign.center,
                       maxLines: 2,
                       style: TextStyle(
@@ -135,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Email',
+                        labelText: AppLocalizations.of(context)!.textEmail,
                         labelStyle: TextStyle(
                           color: accentColor,
                           fontWeight: FontWeight.w500,
@@ -154,7 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Password',
+                        labelText: AppLocalizations.of(context)!.textPassword,
                         labelStyle: TextStyle(
                           color: accentColor,
                           fontWeight: FontWeight.w500,
@@ -190,7 +191,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               _password.value.text,
                             ));
                           },
-                          child: Text("Login"),
+                          child: Text(
+                            AppLocalizations.of(context)!.actionLogin,
+                          ),
                         );
                       },
                     ),
@@ -208,8 +211,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: () {
                   context.push(Routes.signup);
                 },
-                child: const Text(
-                  "Don't have an account? Sign up",
+                child: Text(
+                  AppLocalizations.of(context)!.goSignup,
                   style: TextStyle(fontWeight: FontWeight.w500),
                 ),
               ),
@@ -230,9 +233,9 @@ class _LoginScreenState extends State<LoginScreen> {
       widget.viewModel.login.clearResult();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text("Couldn't log in"),
+          content: Text(AppLocalizations.of(context)!.errorLogin),
           action: SnackBarAction(
-            label: "Try again",
+            label: AppLocalizations.of(context)!.errorRetry,
             onPressed: () => widget.viewModel.login.execute((
               _email.value.text,
               _password.value.text,

@@ -1,0 +1,46 @@
+{
+    "textWelcome": "Welcome to BlobList!",
+    "@textWelcome": {
+        "description": "loginScreen"
+    },
+    "textEmail": "email",
+    "@textEmail": {
+        "description": "loginScreen, signupScreen"
+    },
+    "textPassword": "password",
+    "@textPassword": {
+        "description": "loginScreen, signupScreen"
+    },
+    "goLogin": "Don't have an account? Sign up",
+    "@goLogin": {
+        "description": "loginScreen"
+    },
+    "goSignup": "Have an account? Log in",
+    "@goSignup": {
+        "description": "signupScreen"
+    },
+    "errorLogin": "Couldn't log in",
+    "@errorLogin": {
+        "description": "loginScreen"
+    },
+    "errorRetry": "Try again",
+    "@errorRetry": {
+        "description": "global"
+    },
+    "actionLogin": "Login",
+    "@actionLogin": {
+        "description": "loginScreen"
+    },
+    "actionSignup": "Signup",
+    "@actionSignup": {
+        "description": "signupScreen"
+    },
+    "actionLogout": "Logout",
+    "@actionLogout": {
+        "description": "homeScreen"
+    },
+    "alertDoubleBack": "Press back again to exit",
+    "@alertDoubleBack": {
+        "description": "global"
+    }
+}

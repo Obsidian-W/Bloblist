@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:bloblist/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 //import '../../core/local.dart';
@@ -77,7 +78,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Email',
+                        labelText: AppLocalizations.of(context)!.textEmail,
                         labelStyle: TextStyle(
                           color: accentColor,
                           fontWeight: FontWeight.w500,
@@ -96,7 +97,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Password',
+                        labelText: AppLocalizations.of(context)!.textPassword,
                         labelStyle: TextStyle(
                           color: accentColor,
                           fontWeight: FontWeight.w500,
@@ -132,7 +133,9 @@ class _SignupScreenState extends State<SignupScreen> {
                               _password.value.text,
                             ));
                           },
-                          child: Text("Sign up"),
+                          child: Text(
+                            AppLocalizations.of(context)!.actionSignup,
+                          ),
                         );
                       },
                     ),
@@ -150,7 +153,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 onPressed: () {
                   context.pop();
                 },
-                child: const Text("Have an account? Log in"),
+                child: Text(AppLocalizations.of(context)!.goLogin),
               ),
             ),
           ),

@@ -4,6 +4,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:logging/logging.dart';
+import 'l10n/app_localizations.dart';
 
 import 'config/dependencies.dart';
 import 'routing/router.dart';
@@ -62,6 +63,7 @@ class _BlobListAppState extends State<BlobListApp> with WidgetsBindingObserver {
     return MaterialApp.router(
       title: "BlobList",
       localizationsDelegates: [
+        AppLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
