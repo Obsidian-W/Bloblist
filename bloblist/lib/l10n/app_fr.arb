@@ -1,7 +1,9 @@
 {
+    "@@locale": "fr",
     "textWelcome": "Bienvenue sur BlobList !",
     "textEmail": "@email",
     "textPassword": "mot de passe",
+    "textEnterTodo": "Entrer une tâche",
     "goLogin": "Pas de compte ? Inscrivez-vous",
     "goSignup": "Vous avez un compte ? Connectez-vous",
     "errorLogin": "Connexion impossible",
@@ -9,5 +11,8 @@
     "actionLogin": "Connexion",
     "actionSignup": "Inscription",
     "actionLogout": "Déconnexion",
-    "alertDoubleBack": "Appuyez à nouveau pour quitter"
+    "actionAdd": "Ajouter",
+    "alertDoubleBack": "Appuyez à nouveau pour quitter",
+    "titleLeaderboard": "Leaderboard",
+    "titleStats": "Stats"
 }

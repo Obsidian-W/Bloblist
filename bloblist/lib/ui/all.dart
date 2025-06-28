@@ -11,6 +11,7 @@ export 'home/view_models/home_viewmodel.dart';
 export 'home/widgets/home_screen.dart';
 export 'home/widgets/home_title.dart';
 export 'home/widgets/home_tabs_page.dart';
+export 'home/widgets/todolist_view.dart';
 
 //Stats
 export 'stats/view_models/stats_viewmodel.dart';

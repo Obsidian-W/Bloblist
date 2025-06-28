@@ -2,6 +2,7 @@ import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:bloblist/l10n/app_localizations.dart';
 import 'package:bloblist/routing/routes.dart';
 import 'package:bloblist/ui/core/themes/dimens.dart';
+import 'package:bloblist/ui/home/widgets/todolist_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_3d_controller/flutter_3d_controller.dart';
@@ -61,6 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const HomeTitle(),
@@ -70,39 +72,49 @@ class _HomeScreenState extends State<HomeScreen> {
           _scaffoldContext = scaffoldContext;
           return Stack(
             children: [
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    //The 3D viewer widget for glb format
-                    Flexible(
-                      flex: 1,
-                      child: Flutter3DViewer(
-                        activeGestureInterceptor: true,
-                        progressBarColor: Colors.deepPurple,
-                        enableTouch: true,
-                        onProgress: (double progressValue) {
-                          debugPrint('model loading progress : $progressValue');
-                        },
-                        onLoad: (String modelAddress) {
-                          debugPrint('model loaded : $modelAddress');
-                        },
-                        onError: (String error) {
-                          debugPrint('model failed to load : $error');
-                        },
-                        controller: controller,
-                        src: srcGlb,
-                      ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  //The 3D viewer widget for glb format
+                  Flexible(
+                    flex: 1,
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        final maxHeight =
+                            MediaQuery.of(context).size.height / 3;
+                        final height = constraints.maxHeight > maxHeight
+                            ? maxHeight
+                            : constraints.maxHeight;
+
+                        return SizedBox(
+                          height: height,
+                          child: Flutter3DViewer(
+                            activeGestureInterceptor: true,
+                            progressBarColor: Colors.deepPurple,
+                            enableTouch: true,
+                            onProgress: (double progressValue) {
+                              debugPrint(
+                                'model loading progress : $progressValue',
+                              );
+                            },
+                            onLoad: (String modelAddress) {
+                              debugPrint('model loaded : $modelAddress');
+                            },
+                            onError: (String error) {
+                              debugPrint('model failed to load : $error');
+                            },
+                            controller: controller,
+                            src: srcGlb,
+                          ),
+                        );
+                      },
                     ),
-                    //Below is a placeholder from the default project's code
-                    const Text('You have pushed the button this many times:'),
-                    Text(
-                      '0.0',
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                    const SizedBox(height: Dimens.doublePaddingVertical),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: Dimens.paddingVertical),
+                  Expanded(
+                    child: TodoListView(), // or your ListView widget here
+                  ),
+                ],
               ),
               Positioned(
                 top: Dimens.paddingVertical,

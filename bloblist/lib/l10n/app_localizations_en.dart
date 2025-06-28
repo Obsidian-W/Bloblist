@@ -46,4 +46,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get titleStats => 'Stats';
+
+  @override
+  String get textEnterTodo => 'Enter todo item';
+
+  @override
+  String get actionAdd => 'Add';
 }

@@ -46,4 +46,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get titleStats => 'Stats';
+
+  @override
+  String get textEnterTodo => 'Entrer une tâche';
+
+  @override
+  String get actionAdd => 'Ajouter';
 }

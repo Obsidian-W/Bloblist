@@ -175,6 +175,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Stats'**
   String get titleStats;
+
+  /// homeScreen, todolistView
+  ///
+  /// In en, this message translates to:
+  /// **'Enter todo item'**
+  String get textEnterTodo;
+
+  /// homeScreen, todolistView
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get actionAdd;
 }
 
 class _AppLocalizationsDelegate
