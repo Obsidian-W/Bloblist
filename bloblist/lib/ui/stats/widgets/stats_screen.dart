@@ -1,3 +1,4 @@
+import 'package:bloblist/ui/core/bottom_bar.dart';
 import 'package:flutter/material.dart';
 //import 'package:go_router/go_router.dart';
 
@@ -22,7 +23,15 @@ class _StatsScreenState extends State<StatsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Scaffold(
+      appBar: AppBar(title: Text('Stats')),
+      body: Center(
+        child: Text(
+          'Stats Screen',
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+      ),
+      bottomNavigationBar: BottomBar(currentIndex: 1),
+    );
   }
 }

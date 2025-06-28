@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_3d_controller/flutter_3d_controller.dart';
 
+import '../../core/bottom_bar.dart';
 import '../view_models/home_viewmodel.dart';
 import 'home_title.dart';
 
@@ -121,6 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         },
       ),
+      bottomNavigationBar: BottomBar(currentIndex: 0),
     );
   }
 }
