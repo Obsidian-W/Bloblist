@@ -1,11 +1,13 @@
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:bloblist/l10n/app_localizations.dart';
+import 'package:bloblist/ui/core/themes/dimens.dart';
 import 'package:flutter/material.dart';
 //import 'package:go_router/go_router.dart';
 
 //import '../../../../routing/routes.dart';
 //import '../../core/local.dart';
 import '../view_models/home_viewmodel.dart';
+import 'home_title.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.viewModel});
@@ -55,19 +57,17 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text("Tamagochi"),
+        title: const HomeTitle(),
       ),
       body: Builder(
         builder: (scaffoldContext) {
           _scaffoldContext = scaffoldContext;
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Text('You have pushed the button this many times:'),
-                Text('0.0', style: Theme.of(context).textTheme.headlineMedium),
-                const SizedBox(height: 32),
-                ElevatedButton(
+          return Stack(
+            children: [
+              Positioned(
+                top: Dimens.paddingVertical,
+                right: Dimens.paddingHorizontal,
+                child: ElevatedButton(
                   onPressed: () async {
                     await widget.viewModel.logout(context);
                     if (mounted) {
@@ -76,8 +76,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   child: Text(AppLocalizations.of(context)!.actionLogout),
                 ),
-              ],
-            ),
+              ),
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const Text('You have pushed the button this many times:'),
+                    Text(
+                      '0.0',
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                    const SizedBox(height: 32),
+                  ],
+                ),
+              ),
+            ],
           );
         },
       ),
