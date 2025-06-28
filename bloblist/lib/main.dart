@@ -21,10 +21,26 @@ void main() {
   runApp(MultiProvider(providers: providersLocal, child: const BlobListApp()));
 }
 
-class BlobListApp extends StatelessWidget {
+class BlobListApp extends StatefulWidget {
   const BlobListApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<BlobListApp> createState() => _BlobListAppState();
+}
+
+class _BlobListAppState extends State<BlobListApp> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     FlutterNativeSplash.remove();

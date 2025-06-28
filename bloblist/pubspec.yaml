@@ -31,6 +31,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   shared_preferences: ^2.5.3
+  back_button_interceptor: ^8.0.4
 
 dev_dependencies:
   flutter_test:
