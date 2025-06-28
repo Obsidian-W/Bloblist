@@ -33,6 +33,7 @@ dependencies:
   shared_preferences: ^2.5.3
   back_button_interceptor: ^8.0.4
   intl: any
+  flutter_3d_controller: ^2.2.0
 
 dev_dependencies:
   flutter_test:
@@ -54,6 +55,8 @@ flutter:
   uses-material-design: true
   assets:
     - images/
+    - assets/dq_slime.glb
+    - assets/tasks.json
 
   fonts:
     - family: GuavaCandy

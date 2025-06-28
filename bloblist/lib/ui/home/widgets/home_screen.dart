@@ -1,11 +1,11 @@
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:bloblist/l10n/app_localizations.dart';
+import 'package:bloblist/routing/routes.dart';
 import 'package:bloblist/ui/core/themes/dimens.dart';
 import 'package:flutter/material.dart';
-//import 'package:go_router/go_router.dart';
+import 'package:go_router/go_router.dart';
+import 'package:flutter_3d_controller/flutter_3d_controller.dart';
 
-//import '../../../../routing/routes.dart';
-//import '../../core/local.dart';
 import '../view_models/home_viewmodel.dart';
 import 'home_title.dart';
 
@@ -19,6 +19,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Flutter3DController controller = Flutter3DController();
+  String srcGlb = 'assets/dq_slime.glb';
+
   DateTime? _lastPressed;
   late BuildContext _scaffoldContext;
 
@@ -30,6 +33,9 @@ class _HomeScreenState extends State<HomeScreen> {
       zIndex: 1,
       name: "exitInterceptor",
     );
+    controller.onModelLoaded.addListener(() {
+      debugPrint('model is loaded : ${controller.onModelLoaded.value}');
+    });
   }
 
   @override
@@ -64,36 +70,57 @@ class _HomeScreenState extends State<HomeScreen> {
           _scaffoldContext = scaffoldContext;
           return Stack(
             children: [
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    //The 3D viewer widget for glb format
+                    Flexible(
+                      flex: 1,
+                      child: Flutter3DViewer(
+                        activeGestureInterceptor: true,
+                        progressBarColor: Colors.deepPurple,
+                        enableTouch: true,
+                        onProgress: (double progressValue) {
+                          debugPrint('model loading progress : $progressValue');
+                        },
+                        onLoad: (String modelAddress) {
+                          debugPrint('model loaded : $modelAddress');
+                        },
+                        onError: (String error) {
+                          debugPrint('model failed to load : $error');
+                        },
+                        controller: controller,
+                        src: srcGlb,
+                      ),
+                    ),
+                    //Below is a placeholder from the default project's code
+                    const Text('You have pushed the button this many times:'),
+                    Text(
+                      '0.0',
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                    const SizedBox(height: Dimens.doublePaddingVertical),
+                  ],
+                ),
+              ),
               Positioned(
                 top: Dimens.paddingVertical,
                 right: Dimens.paddingHorizontal,
                 child: ElevatedButton(
                   onPressed: () async {
                     await widget.viewModel.logout(context);
-                    if (mounted) {
-                      Navigator.of(context).pushReplacementNamed('/login');
+                    if (context.mounted) {
+                      context.go(Routes.login);
                     }
                   },
                   child: Text(AppLocalizations.of(context)!.actionLogout),
-                ),
-              ),
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const Text('You have pushed the button this many times:'),
-                    Text(
-                      '0.0',
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                    const SizedBox(height: 32),
-                  ],
                 ),
               ),
             ],
           );
         },
       ),
-    ); // This trailing comma makes auto
+    );
   }
 }
