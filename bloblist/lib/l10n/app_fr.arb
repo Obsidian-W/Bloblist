@@ -8,5 +8,6 @@
     "errorRetry": "Réessayer",
     "actionLogin": "Connexion",
     "actionSignup": "Inscription",
-    "alertDoubleBack": "Press back again to exit"
+    "actionLogout": "Déconnexion",
+    "alertDoubleBack": "Appuyez à nouveau pour quitter"
 }

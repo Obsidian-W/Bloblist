@@ -36,8 +36,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get actionSignup => 'Inscription';
 
   @override
-  String get actionLogout => 'Logout';
+  String get actionLogout => 'Déconnexion';
 
   @override
-  String get alertDoubleBack => 'Press back again to exit';
+  String get alertDoubleBack => 'Appuyez à nouveau pour quitter';
 }
