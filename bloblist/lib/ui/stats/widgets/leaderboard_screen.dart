@@ -1,9 +1,5 @@
-import 'package:bloblist/ui/core/bottom_bar.dart';
+import 'package:bloblist/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-//import 'package:go_router/go_router.dart';
-
-//import '../../../../routing/routes.dart';
-//import '../../core/local.dart';
 import '../view_models/leaderboard_viewmodel.dart';
 
 class LeaderboardScreen extends StatefulWidget {
@@ -24,14 +20,17 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Leaderboard')),
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        centerTitle: true,
+        title: Text(AppLocalizations.of(context)!.titleLeaderboard),
+      ),
       body: Center(
         child: Text(
           'Leaderboard screen',
           style: Theme.of(context).textTheme.headlineMedium,
         ),
       ),
-      bottomNavigationBar: BottomBar(currentIndex: 2),
     );
   }
 }

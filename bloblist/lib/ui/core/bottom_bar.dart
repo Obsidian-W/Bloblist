@@ -1,30 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:bloblist/routing/routes.dart';
 
 class BottomBar extends StatelessWidget {
   final int currentIndex;
-  const BottomBar({super.key, required this.currentIndex});
-
-  void _onTap(BuildContext context, int index) {
-    switch (index) {
-      case 0:
-        context.go(Routes.home);
-        break;
-      case 1:
-        context.go(Routes.stats);
-        break;
-      case 2:
-        context.go(Routes.leaderboard);
-        break;
-    }
-  }
+  final ValueChanged<int> onTabSelected;
+  const BottomBar({
+    super.key,
+    required this.currentIndex,
+    required this.onTabSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       currentIndex: currentIndex,
-      onTap: (index) => _onTap(context, index),
+      onTap: (index) {
+        onTabSelected(index);
+      },
       items: const [
         BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
         BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: 'Stats'),

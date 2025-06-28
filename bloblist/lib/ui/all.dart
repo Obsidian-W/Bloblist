@@ -10,6 +10,7 @@ export 'auth/widgets/signup_screen.dart';
 export 'home/view_models/home_viewmodel.dart';
 export 'home/widgets/home_screen.dart';
 export 'home/widgets/home_title.dart';
+export 'home/widgets/home_tabs_page.dart';
 
 //Stats
 export 'stats/view_models/stats_viewmodel.dart';

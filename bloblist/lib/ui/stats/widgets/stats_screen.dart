@@ -1,9 +1,5 @@
-import 'package:bloblist/ui/core/bottom_bar.dart';
+import 'package:bloblist/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-//import 'package:go_router/go_router.dart';
-
-//import '../../../../routing/routes.dart';
-//import '../../core/local.dart';
 import '../view_models/stats_viewmodel.dart';
 
 class StatsScreen extends StatefulWidget {
@@ -24,14 +20,17 @@ class _StatsScreenState extends State<StatsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Stats')),
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        centerTitle: true,
+        title: Text(AppLocalizations.of(context)!.titleStats),
+      ),
       body: Center(
         child: Text(
           'Stats Screen',
           style: Theme.of(context).textTheme.headlineMedium,
         ),
       ),
-      bottomNavigationBar: BottomBar(currentIndex: 1),
     );
   }
 }

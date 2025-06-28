@@ -40,4 +40,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get alertDoubleBack => 'Press back again to exit';
+
+  @override
+  String get titleLeaderboard => 'Leaderboard';
+
+  @override
+  String get titleStats => 'Stats';
 }

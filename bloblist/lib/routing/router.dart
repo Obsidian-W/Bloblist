@@ -1,5 +1,4 @@
 import 'package:go_router/go_router.dart'; // Best router for flutter
-import 'package:logging/logging.dart';
 import 'package:provider/provider.dart'; // For ease of component reuse
 import 'package:flutter/cupertino.dart'; // To get the build context
 
@@ -49,7 +48,7 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
       path: Routes.home,
       builder: (context, state) {
         final viewModel = HomeViewModel(userRepository: context.read());
-        return HomeScreen(viewModel: viewModel);
+        return HomeTabsPage(viewModel: viewModel);
       },
       routes: [
         GoRoute(

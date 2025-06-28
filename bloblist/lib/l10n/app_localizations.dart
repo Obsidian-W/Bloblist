@@ -163,6 +163,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Press back again to exit'**
   String get alertDoubleBack;
+
+  /// leaderboardScreen
+  ///
+  /// In en, this message translates to:
+  /// **'Leaderboard'**
+  String get titleLeaderboard;
+
+  /// statsScreen
+  ///
+  /// In en, this message translates to:
+  /// **'Stats'**
+  String get titleStats;
 }
 
 class _AppLocalizationsDelegate

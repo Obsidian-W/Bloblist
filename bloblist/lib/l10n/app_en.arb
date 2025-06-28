@@ -42,5 +42,13 @@
     "alertDoubleBack": "Press back again to exit",
     "@alertDoubleBack": {
         "description": "global"
+    },
+    "titleLeaderboard": "Leaderboard",
+    "@titleLeaderboard": {
+        "description": "leaderboardScreen"
+    },
+    "titleStats": "Stats",
+    "@titleStats": {
+        "description": "statsScreen"
     }
 }
