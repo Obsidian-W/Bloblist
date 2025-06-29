@@ -18,7 +18,7 @@ class _TodoListViewState extends State<TodoListView> {
     final vm = context.watch<HomeViewModel>();
 
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
       child: Column(
         children: [
           Row(
@@ -54,6 +54,16 @@ class _TodoListViewState extends State<TodoListView> {
                   ),
                   value: vm.tasks[index].completed,
                   onChanged: vm.tasks[index].completed ? null : (_) => vm.toggleTask(index),
+                  checkColor: Colors.white,
+                  fillColor: WidgetStateProperty.resolveWith<Color>((states) {
+                    if (states.contains(WidgetState.selected)) {
+                      return Colors.deepPurple;
+                    }
+                    return Colors.transparent;
+                  }),
+                  side: WidgetStateBorderSide.resolveWith((states) {
+                    return BorderSide(color: Colors.deepPurple, width: 2);
+                  }),
                 );
               },
             ),

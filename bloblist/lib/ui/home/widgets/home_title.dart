@@ -57,10 +57,7 @@ class _HomeTitleState extends State<HomeTitle> {
                   controller: _controller,
                   autofocus: true,
                   onSubmitted: _saveTitle,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    isDense: true,
-                  ),
+                  decoration: const InputDecoration(border: InputBorder.none, isDense: true),
                 ),
               )
             : Expanded(

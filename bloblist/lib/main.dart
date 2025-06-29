@@ -1,3 +1,4 @@
+import 'package:bloblist/ui/core/themes/theme.dart' as app_theme;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -68,6 +69,7 @@ class _BlobListAppState extends State<BlobListApp> with WidgetsBindingObserver {
       ],
       supportedLocales: [Locale('en'), Locale('fr')],
       themeMode: ThemeMode.system,
+      theme: app_theme.appTheme,
       routerConfig: router(context.read()),
     );
   }
