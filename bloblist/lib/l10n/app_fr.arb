@@ -18,6 +18,8 @@
     "actionLogout": "Déconnexion",
     "actionAdd": "Ajouter",
     "alertDoubleBack": "Appuyez à nouveau pour quitter",
+    "alertTodoLimit": "Limite de tâches atteinte (max=5)",
     "titleLeaderboard": "Leaderboard",
     "titleStats": "Stats"
+
 }

@@ -67,4 +67,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get errorPhoneInvalid => 'Erreur: Tel invalide';
+
+  @override
+  String get alertTodoLimit => 'Limite de tâches atteinte (max=5)';
 }

@@ -217,6 +217,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Error: Invalid phone'**
   String get errorPhoneInvalid;
+
+  /// signupScreen
+  ///
+  /// In en, this message translates to:
+  /// **'Error: To many todos (max=5)'**
+  String get alertTodoLimit;
 }
 
 class _AppLocalizationsDelegate

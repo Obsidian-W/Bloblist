@@ -67,4 +67,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorPhoneInvalid => 'Error: Invalid phone';
+
+  @override
+  String get alertTodoLimit => 'Error: To many todos (max=5)';
 }

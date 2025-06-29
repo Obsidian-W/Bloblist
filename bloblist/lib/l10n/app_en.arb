@@ -79,5 +79,9 @@
     "errorPhoneInvalid": "Error: Invalid phone",
     "@errorPhoneInvalid": {
         "description": "signupScreen"
+    },
+    "alertTodoLimit": "Error: To many todos (max=5)",
+    "@alertTodoLimit": {
+        "description": "signupScreen"
     }
 }
