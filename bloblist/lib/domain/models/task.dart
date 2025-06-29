@@ -14,6 +14,7 @@ class Task {
   //Auto inited with his default values
   Task();
 
+  /// All json conversion - Quickly built by Gemini
   Map<String, dynamic> toJson() {
     return {
       'taskName': taskName,

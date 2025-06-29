@@ -29,6 +29,7 @@ class AuthRepositoryDev extends AuthRepository {
   bool get isAuthenticatedSync => _isAuthenticated;
 
   /// Login should always successful in dev scenarios -> Here it's ok if we use empty credentials
+  /// Quickly built by Gemini
   @override
   Future<Result<void>> login({required String email, required String password}) async {
     final prefs = await SharedPreferences.getInstance();
@@ -49,6 +50,7 @@ class AuthRepositoryDev extends AuthRepository {
     return _isAuthenticated ? const Result.ok(null) : Result.error(Exception('Login failed'));
   }
 
+  /// Quickly built by Gemini
   @override
   Future<Result<void>> signup({required String email, required String password, required String phone}) async {
     final prefs = await SharedPreferences.getInstance();
@@ -62,6 +64,11 @@ class AuthRepositoryDev extends AuthRepository {
   Future<Result<void>> logout() async {
     _isAuthenticated = false;
     await _saveAuthState();
+
+    // Clear all preferences to simulate a full logout
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+
     notifyListeners();
     return const Result.ok(null);
   }
