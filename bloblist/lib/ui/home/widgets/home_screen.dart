@@ -29,11 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    BackButtonInterceptor.add(
-      _backInterceptor,
-      zIndex: 1,
-      name: "exitInterceptor",
-    );
+    BackButtonInterceptor.add(_backInterceptor, zIndex: 1, name: "exitInterceptor");
     controller.onModelLoaded.addListener(() {
       debugPrint('model is loaded : ${controller.onModelLoaded.value}');
     });
@@ -47,13 +43,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   bool _backInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
     final now = DateTime.now();
-    if (_lastPressed == null ||
-        now.difference(_lastPressed!) > const Duration(seconds: 2)) {
+    if (_lastPressed == null || now.difference(_lastPressed!) > const Duration(seconds: 2)) {
       _lastPressed = now;
       ScaffoldMessenger.of(_scaffoldContext).removeCurrentSnackBar();
-      ScaffoldMessenger.of(_scaffoldContext).showSnackBar(
-        SnackBar(content: Text(AppLocalizations.of(context)!.alertDoubleBack)),
-      );
+      ScaffoldMessenger.of(
+        _scaffoldContext,
+      ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.alertDoubleBack)));
       return true; // Prevent pop
     }
     return false; //Exit
@@ -63,10 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const HomeTitle(),
-      ),
+      appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.inversePrimary, title: const HomeTitle()),
       body: Builder(
         builder: (scaffoldContext) {
           _scaffoldContext = scaffoldContext;
@@ -80,11 +72,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     flex: 1,
                     child: LayoutBuilder(
                       builder: (context, constraints) {
-                        final maxHeight =
-                            MediaQuery.of(context).size.height / 3;
-                        final height = constraints.maxHeight > maxHeight
-                            ? maxHeight
-                            : constraints.maxHeight;
+                        final maxHeight = MediaQuery.of(context).size.height / 3;
+                        final height = constraints.maxHeight > maxHeight ? maxHeight : constraints.maxHeight;
 
                         return SizedBox(
                           height: height,
@@ -93,9 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             progressBarColor: Colors.deepPurple,
                             enableTouch: true,
                             onProgress: (double progressValue) {
-                              debugPrint(
-                                'model loading progress : $progressValue',
-                              );
+                              debugPrint('model loading progress : $progressValue');
                             },
                             onLoad: (String modelAddress) {
                               debugPrint('model loaded : $modelAddress');

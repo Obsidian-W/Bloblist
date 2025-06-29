@@ -46,10 +46,7 @@ class _TodoListViewState extends State<TodoListView> {
                   ),
                 ),
                 const SizedBox(width: 4),
-                ElevatedButton(
-                  onPressed: _addTodo,
-                  child: Text(AppLocalizations.of(context)!.actionAdd),
-                ),
+                ElevatedButton(onPressed: _addTodo, child: Text(AppLocalizations.of(context)!.actionAdd)),
               ],
             ),
             const SizedBox(height: 8),

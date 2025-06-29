@@ -4,8 +4,7 @@ import '../../../data/repositories/auth/auth_repository.dart';
 import 'package:flutter/material.dart';
 
 class HomeViewModel {
-  HomeViewModel({required UserRepository userRepository})
-    : _userRepository = userRepository {
+  HomeViewModel({required UserRepository userRepository}) : _userRepository = userRepository {
     //
   }
 

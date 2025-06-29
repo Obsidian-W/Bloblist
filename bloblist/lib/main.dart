@@ -12,9 +12,7 @@ import 'routing/router.dart';
 void main() {
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((record) {
-    print(
-      '${record.level.name}: ${record.time}: ${record.loggerName}: ${record.message}',
-    );
+    print('${record.level.name}: ${record.time}: ${record.loggerName}: ${record.message}');
   });
   Logger('Test').info('Logger is working!'); // Test log
 
