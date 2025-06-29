@@ -12,7 +12,7 @@ class Task {
   DateTime date = DateTime.now();
 
   //Auto inited with his default values
-  Task();
+  Task(this.taskName, this.completed);
 
   /// All json conversion - Quickly built by Gemini
   Map<String, dynamic> toJson() {
@@ -30,15 +30,13 @@ class Task {
   }
 
   factory Task.fromJson(Map<String, dynamic> json) {
-    return Task()
-      ..taskName = json['taskName'] as String
+    return Task(json['taskName'] as String, json['completed'] as bool)
       ..strength = json['strength'] as int
       ..agility = json['agility'] as int
       ..mind = json['mind'] as int
       ..willpower = json['willpower'] as int
       ..charisma = json['charisma'] as int
       ..xp = json['xp'] as int
-      ..date = DateTime.parse(json['date'] as String)
-      ..completed = json['completed'] as bool;
+      ..date = DateTime.parse(json['date'] as String);
   }
 }

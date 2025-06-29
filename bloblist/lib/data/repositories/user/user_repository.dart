@@ -13,4 +13,7 @@ abstract class UserRepository {
 
   //Get user's blob
   Future<Result<Blob>> getBlob();
+
+  //Save user's blob
+  Future<Result<void>> saveBlob({required Blob blob});
 }

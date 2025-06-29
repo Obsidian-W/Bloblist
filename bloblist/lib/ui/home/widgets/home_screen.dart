@@ -6,14 +6,13 @@ import 'package:bloblist/ui/home/widgets/todolist_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_3d_controller/flutter_3d_controller.dart';
+import 'package:provider/provider.dart';
 
 import '../view_models/home_viewmodel.dart';
 import 'home_title.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key, required this.viewModel});
-
-  final HomeViewModel viewModel;
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -56,6 +55,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<HomeViewModel>();
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.inversePrimary, title: const HomeTitle()),
@@ -108,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 right: Dimens.paddingHorizontal,
                 child: ElevatedButton(
                   onPressed: () async {
-                    await widget.viewModel.logout(context);
+                    await viewModel.logout(context);
                     if (context.mounted) {
                       context.go(Routes.login);
                     }

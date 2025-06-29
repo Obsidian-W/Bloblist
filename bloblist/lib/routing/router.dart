@@ -15,17 +15,13 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
     GoRoute(
       path: Routes.login,
       builder: (context, state) {
-        return LoginScreen(
-          viewModel: LoginViewModel(authRepository: context.read()),
-        );
+        return LoginScreen(viewModel: LoginViewModel(authRepository: context.read()));
       },
     ),
     GoRoute(
       path: Routes.signup,
       builder: (context, state) {
-        return SignupScreen(
-          viewModel: SignupViewModel(authRepository: context.read()),
-        );
+        return SignupScreen(viewModel: SignupViewModel(authRepository: context.read()));
       },
     ),
     GoRoute(
@@ -33,9 +29,7 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
       pageBuilder: (context, state) {
         return CustomTransitionPage<void>(
           key: state.pageKey,
-          child: SignupScreen(
-            viewModel: SignupViewModel(authRepository: context.read()),
-          ),
+          child: SignupScreen(viewModel: SignupViewModel(authRepository: context.read())),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(opacity: animation, child: child);
           },
@@ -47,8 +41,10 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
     GoRoute(
       path: Routes.home,
       builder: (context, state) {
-        final viewModel = HomeViewModel(userRepository: context.read());
-        return HomeTabsPage(viewModel: viewModel);
+        return ChangeNotifierProvider(
+          create: (_) => HomeViewModel(userRepository: context.read(), taskRepository: context.read()),
+          child: const HomeTabsPage(),
+        );
       },
       routes: [
         GoRoute(
