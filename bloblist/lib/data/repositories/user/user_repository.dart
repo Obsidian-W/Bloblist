@@ -12,7 +12,7 @@ abstract class UserRepository {
   Future<Result<User>> getUser();
 
   //Get user's blob
-  Future<Result<Blob>> getBlob();
+  Future<Blob> getBlob();
 
   //Save user's blob
   Future<Result<void>> saveBlob({required Blob blob});

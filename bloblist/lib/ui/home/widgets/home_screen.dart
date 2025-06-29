@@ -78,21 +78,66 @@ class _HomeScreenState extends State<HomeScreen> {
 
                         return SizedBox(
                           height: height,
-                          child: Flutter3DViewer(
-                            activeGestureInterceptor: true,
-                            progressBarColor: Colors.deepPurple,
-                            enableTouch: true,
-                            onProgress: (double progressValue) {
-                              debugPrint('model loading progress : $progressValue');
-                            },
-                            onLoad: (String modelAddress) {
-                              debugPrint('model loaded : $modelAddress');
-                            },
-                            onError: (String error) {
-                              debugPrint('model failed to load : $error');
-                            },
-                            controller: controller,
-                            src: srcGlb,
+                          child: Stack(
+                            children: [
+                              Flutter3DViewer(
+                                activeGestureInterceptor: true,
+                                progressBarColor: Colors.deepPurple,
+                                enableTouch: true,
+                                onProgress: (double progressValue) {
+                                  debugPrint('model loading progress : $progressValue');
+                                },
+                                onLoad: (String modelAddress) {
+                                  debugPrint('model loaded : $modelAddress');
+                                },
+                                onError: (String error) {
+                                  debugPrint('model failed to load : $error');
+                                },
+                                controller: controller,
+                                src: srcGlb,
+                              ),
+                              Positioned(
+                                top: 10,
+                                left: 10,
+                                child: Container(
+                                  padding: const EdgeInsets.all(8.0),
+                                  decoration: BoxDecoration(
+                                    color: Colors.deepPurple.withOpacity(0.5),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Level: ${viewModel.blob.level}',
+                                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        'XP: ${viewModel.blob.xp} / 10',
+                                        style: const TextStyle(color: Colors.white),
+                                      ),
+                                      Text(
+                                        'Strength: ${viewModel.blob.strength}',
+                                        style: const TextStyle(color: Colors.white),
+                                      ),
+                                      Text(
+                                        'Willpower: ${viewModel.blob.willpower}',
+                                        style: const TextStyle(color: Colors.white),
+                                      ),
+                                      Text('Mind: ${viewModel.blob.mind}', style: const TextStyle(color: Colors.white)),
+                                      Text(
+                                        'Agility: ${viewModel.blob.agility}',
+                                        style: const TextStyle(color: Colors.white),
+                                      ),
+                                      Text(
+                                        'Charisma: ${viewModel.blob.charisma}',
+                                        style: const TextStyle(color: Colors.white),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         );
                       },

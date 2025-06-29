@@ -1,5 +1,6 @@
 import 'package:bloblist/data/repositories/tasks/task_repository.dart';
 import 'package:provider/provider.dart';
+import '../../../domain/models/blob.dart';
 import '../../../data/repositories/user/user_repository.dart';
 import '../../../data/repositories/auth/auth_repository.dart';
 import 'package:flutter/material.dart';
@@ -10,14 +11,17 @@ class HomeViewModel extends ChangeNotifier {
     : _userRepository = userRepository,
       _taskRepository = taskRepository {
     loadTasks();
+    loadBlob();
   }
 
   final UserRepository _userRepository;
   final TaskRepository _taskRepository;
   List<Task> tasks = [];
+  Blob blob = Blob();
 
-  Future<void> logout(BuildContext context) async {
-    await context.read<AuthRepository>().logout();
+  Future<void> loadBlob() async {
+    blob = await _userRepository.getBlob();
+    notifyListeners();
   }
 
   Future<void> loadTasks() async {
@@ -28,6 +32,7 @@ class HomeViewModel extends ChangeNotifier {
   Future<bool> addTask(String taskName) async {
     if (taskName.trim().isNotEmpty && tasks.length < 5) {
       Task task = Task(taskName.trim(), false);
+      task.xp = 15; // Default XP for new tasks (should be 1)
       tasks.add(task);
       await _taskRepository.saveTasks(tasks);
       notifyListeners();
@@ -41,6 +46,22 @@ class HomeViewModel extends ChangeNotifier {
     await _taskRepository.saveTasks(tasks);
 
     //Update blob with new stats and do the necessary calculations for level up + animations
+    blob.xp += tasks[index].xp;
+    blob.agility += tasks[index].agility;
+    blob.strength += tasks[index].strength;
+    blob.mind += tasks[index].mind;
+    blob.charisma += tasks[index].charisma;
+    blob.willpower += tasks[index].willpower;
+    if (blob.xp >= 10) {
+      blob.xp = blob.xp - 10; // Reset XP after level up
+      blob.level += 1;
+    }
+
+    await _userRepository.saveBlob(blob: blob);
     notifyListeners();
+  }
+
+  Future<void> logout(BuildContext context) async {
+    await context.read<AuthRepository>().logout();
   }
 }

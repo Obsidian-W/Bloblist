@@ -23,7 +23,7 @@ class UserRepositoryLocal implements UserRepository {
 
   /// Get the user's blob or create a new one if it doesn't exist
   @override
-  Future<Result<Blob>> getBlob() async {
+  Future<Blob> getBlob() async {
     Blob? blob;
 
     final prefs = await SharedPreferences.getInstance();
@@ -34,7 +34,7 @@ class UserRepositoryLocal implements UserRepository {
     } else {
       blob = Blob();
     }
-    return Result.ok(blob);
+    return blob;
   }
 
   /// Save or update the user's blob
