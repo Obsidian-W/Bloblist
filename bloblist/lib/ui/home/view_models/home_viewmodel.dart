@@ -18,6 +18,8 @@ class HomeViewModel extends ChangeNotifier {
   final TaskRepository _taskRepository;
   List<Task> tasks = [];
   Blob blob = Blob();
+  bool _levelUpTriggered = false;
+  bool get justLeveledUp => _levelUpTriggered; //For UI to know if the blob just leveled up
 
   Future<void> loadBlob() async {
     blob = await _userRepository.getBlob();
@@ -52,13 +54,28 @@ class HomeViewModel extends ChangeNotifier {
     blob.mind += tasks[index].mind;
     blob.charisma += tasks[index].charisma;
     blob.willpower += tasks[index].willpower;
-    if (blob.xp >= 10) {
-      blob.xp = blob.xp - 10; // Reset XP after level up
+
+    bool leveledUp = false;
+
+    while (blob.xp >= 10) {
+      blob.xp -= 10;
       blob.level += 1;
+      leveledUp = true;
     }
+
+    //Play the animation only once
+    /*
+    if (leveledUp && !_levelUpTriggered) {
+      _levelUpTriggered = true;
+    }*/
 
     await _userRepository.saveBlob(blob: blob);
     notifyListeners();
+  }
+
+  /// Make sure to call this method after handling the level up animation and sound
+  void levelUpHandled() {
+    _levelUpTriggered = false;
   }
 
   Future<void> logout(BuildContext context) async {

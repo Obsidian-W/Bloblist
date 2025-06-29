@@ -41,7 +41,7 @@ class UserRepositoryLocal implements UserRepository {
   @override
   Future<Result<void>> saveBlob({required Blob blob}) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString("blob", jsonEncode(blob.toJson().toString()));
+    await prefs.setString("blob", jsonEncode(blob.toJson()));
     return const Result.ok(null);
   }
 }

@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:bloblist/l10n/app_localizations.dart';
 import 'package:bloblist/routing/routes.dart';
@@ -20,6 +21,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   Flutter3DController controller = Flutter3DController();
+  final _audioPlayer = AudioPlayer();
+
   String srcGlb = 'assets/dq_slime.glb';
 
   DateTime? _lastPressed;
@@ -32,6 +35,8 @@ class _HomeScreenState extends State<HomeScreen> {
     controller.onModelLoaded.addListener(() {
       debugPrint('model is loaded : ${controller.onModelLoaded.value}');
     });
+    AudioLogger.logLevel = AudioLogLevel.info;
+    _audioPlayer.play(AssetSource('dq_boing.mp3'));
   }
 
   @override
@@ -56,6 +61,15 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<HomeViewModel>();
+
+    if (viewModel.justLeveledUp) {
+      /*WidgetsBinding.instance.addPostFrameCallback((_) {
+        //The current model has no animations, but ideally we had a jump + boing
+        //controller.playAnimation(animationName: 'level_up');
+        _audioPlayer.play(AssetSource('assets/dq_boing.mp3'));
+      });*/
+      viewModel.levelUpHandled();
+    }
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -110,7 +124,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     children: [
                                       Text(
                                         'Level: ${viewModel.blob.level}',
-                                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontFamily: "GuavaCandy",
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16.0,
+                                        ),
                                       ),
                                       Text(
                                         'XP: ${viewModel.blob.xp} / 10',
