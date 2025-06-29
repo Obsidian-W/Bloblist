@@ -28,26 +28,32 @@ class AuthRepositoryDev extends AuthRepository {
   @override
   bool get isAuthenticatedSync => _isAuthenticated;
 
-  /// Login is always successful in dev scenarios
+  /// Login should always successful in dev scenarios -> Here it's ok if we use empty credentials
   @override
-  Future<Result<void>> login({
-    required String email,
-    required String password,
-  }) async {
-    _isAuthenticated = true;
+  Future<Result<void>> login({required String email, required String password}) async {
+    final prefs = await SharedPreferences.getInstance();
+    final userKey = 'user_$email';
+    final storedPassword = prefs.getString(userKey);
+
+    if (email.isEmpty && password.isEmpty) {
+      _isAuthenticated = true;
+    } else if (storedPassword != null && storedPassword == password) {
+      _isAuthenticated = true;
+    } else {
+      _isAuthenticated = false;
+      return Result.error(Exception('Invalid credentials'));
+    }
+
     await _saveAuthState();
     notifyListeners();
-    return const Result.ok(null);
+    return _isAuthenticated ? const Result.ok(null) : Result.error(Exception('Login failed'));
   }
 
   @override
-  Future<Result<void>> signup({
-    required String email,
-    required String password,
-  }) async {
-    _isAuthenticated = true;
-    await _saveAuthState();
-    notifyListeners();
+  Future<Result<void>> signup({required String email, required String password, required String phone}) async {
+    final prefs = await SharedPreferences.getInstance();
+    final userKey = 'user_$email';
+    await prefs.setString(userKey, password);
     return const Result.ok(null);
   }
 

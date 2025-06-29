@@ -14,10 +14,7 @@ abstract class AuthRepository extends ChangeNotifier {
   Future<Result<void>> login({required String email, required String password});
 
   // Perform signup - similar to login for now
-  Future<Result<void>> signup({
-    required String email,
-    required String password,
-  });
+  Future<Result<void>> signup({required String email, required String password, required String phone});
 
   // Perform logout
   Future<Result<void>> logout();

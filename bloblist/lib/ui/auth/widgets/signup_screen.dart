@@ -26,6 +26,20 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   void initState() {
     super.initState();
+    widget.viewModel.signup.addListener(_onResult);
+  }
+
+  @override
+  void didUpdateWidget(covariant SignupScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    oldWidget.viewModel.signup.removeListener(_onResult);
+    widget.viewModel.signup.addListener(_onResult);
+  }
+
+  @override
+  void dispose() {
+    widget.viewModel.signup.removeListener(_onResult);
+    super.dispose();
   }
 
   @override
@@ -42,10 +56,7 @@ class _SignupScreenState extends State<SignupScreen> {
             // Makes the image fill the entire Stack area
             child: Container(
               decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('images/bg_slime.png'),
-                  repeat: ImageRepeat.repeat,
-                ),
+                image: DecorationImage(image: AssetImage('images/bg_slime.png'), repeat: ImageRepeat.repeat),
               ),
             ),
           ),
@@ -76,33 +87,20 @@ class _SignupScreenState extends State<SignupScreen> {
                         autofocus: true,
                         obscureText: false,
                         keyboardType: TextInputType.emailAddress,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: const TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w700),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: AppLocalizations.of(context)!.textEmail,
-                          labelStyle: TextStyle(
-                            color: accentColor,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          labelStyle: TextStyle(color: accentColor, fontWeight: FontWeight.w500),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return AppLocalizations.of(
-                              context,
-                            )!.errorEmailRequired;
+                            return AppLocalizations.of(context)!.errorEmailRequired;
                           }
                           // Simple email regex
-                          final emailRegex = RegExp(
-                            r'^[^@\s]+@[^@\s]+\.[^@\s]+$',
-                          );
+                          final emailRegex = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
                           if (!emailRegex.hasMatch(value)) {
-                            return AppLocalizations.of(
-                              context,
-                            )!.errorEmailInvalid;
+                            return AppLocalizations.of(context)!.errorEmailInvalid;
                           }
                           return null;
                         },
@@ -112,31 +110,20 @@ class _SignupScreenState extends State<SignupScreen> {
                         controller: _phone,
                         obscureText: false,
                         keyboardType: TextInputType.phone,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: const TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w700),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: AppLocalizations.of(context)!.textPhone,
-                          labelStyle: TextStyle(
-                            color: accentColor,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          labelStyle: TextStyle(color: accentColor, fontWeight: FontWeight.w500),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return AppLocalizations.of(
-                              context,
-                            )!.errorPhoneRequired;
+                            return AppLocalizations.of(context)!.errorPhoneRequired;
                           }
                           // Simple phone validation: digits only and length between 7 and 15
                           final phoneRegex = RegExp(r'^\+?[0-9]{7,15}$');
                           if (!phoneRegex.hasMatch(value)) {
-                            return AppLocalizations.of(
-                              context,
-                            )!.errorPhoneInvalid;
+                            return AppLocalizations.of(context)!.errorPhoneInvalid;
                           }
                           return null;
                         },
@@ -146,30 +133,17 @@ class _SignupScreenState extends State<SignupScreen> {
                         controller: _password,
                         obscureText: _isObscured,
                         obscuringCharacter: "☺",
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w500,
-                        ),
+                        style: const TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w500),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: AppLocalizations.of(context)!.textPassword,
-                          labelStyle: TextStyle(
-                            color: accentColor,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          labelStyle: TextStyle(color: accentColor, fontWeight: FontWeight.w500),
                           suffixIcon: IconButton(
                             padding: const EdgeInsets.all(0),
                             iconSize: 20.0,
                             icon: _isObscured
-                                ? const Icon(
-                                    Icons.visibility_off,
-                                    color: Colors.grey,
-                                  )
-                                : const Icon(
-                                    Icons.visibility,
-                                    color: Colors.black,
-                                  ),
+                                ? const Icon(Icons.visibility_off, color: Colors.grey)
+                                : const Icon(Icons.visibility, color: Colors.black),
                             onPressed: () {
                               setState(() {
                                 _isObscured = !_isObscured;
@@ -185,18 +159,14 @@ class _SignupScreenState extends State<SignupScreen> {
                           return FilledButton(
                             onPressed: () {
                               if (_formKey.currentState?.validate() ?? false) {
-                                widget.viewModel.signup.execute((
-                                  _email.text,
-                                  _password.text,
-                                ));
+                                widget.viewModel.signup.execute((_email.text, _password.text, _phone.text));
                               }
                             },
-                            child: Text(
-                              AppLocalizations.of(context)!.actionSignup,
-                            ),
+                            child: Text(AppLocalizations.of(context)!.actionSignup),
                           );
                         },
                       ),
+                      const SizedBox(height: Dimens.paddingVertical),
                     ],
                   ),
                 ),
@@ -206,7 +176,7 @@ class _SignupScreenState extends State<SignupScreen> {
           Positioned(
             left: 0,
             right: 0,
-            bottom: Dimens.doublePaddingVertical,
+            bottom: Dimens.paddingVertical,
             child: Center(
               child: TextButton(
                 onPressed: () {
@@ -219,5 +189,14 @@ class _SignupScreenState extends State<SignupScreen> {
         ],
       ),
     );
+  }
+
+  //Quick and dirty
+  void _onResult() {
+    if (widget.viewModel.signup.completed) {
+      widget.viewModel.signup.clearResult();
+      // Go back to login after signup
+      context.pop();
+    }
   }
 }

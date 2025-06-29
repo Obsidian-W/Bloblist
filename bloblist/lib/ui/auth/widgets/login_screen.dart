@@ -59,10 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
             // Makes the image fill the entire Stack area
             child: Container(
               decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('images/bg_slime.png'),
-                  repeat: ImageRepeat.repeat,
-                ),
+                image: DecorationImage(image: AssetImage('images/bg_slime.png'), repeat: ImageRepeat.repeat),
               ),
             ),
           ),
@@ -92,31 +89,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       maxLines: 2,
                       style: TextStyle(
                         shadows: [
-                          Shadow(
-                            blurRadius: 4.0,
-                            color: Colors.white,
-                            offset: Offset(3.0, 0.0),
-                          ),
-                          Shadow(
-                            blurRadius: 4.0,
-                            color: Colors.white,
-                            offset: Offset(-3.0, 0.0),
-                          ),
-                          Shadow(
-                            blurRadius: 4.0,
-                            color: Colors.white,
-                            offset: Offset(0.0, 3.0),
-                          ),
-                          Shadow(
-                            blurRadius: 4.0,
-                            color: Colors.white,
-                            offset: Offset(0.0, -3.0),
-                          ),
-                          Shadow(
-                            blurRadius: 6.0,
-                            color: Colors.white.withOpacity(0.6),
-                            offset: Offset.zero,
-                          ),
+                          Shadow(blurRadius: 4.0, color: Colors.white, offset: Offset(3.0, 0.0)),
+                          Shadow(blurRadius: 4.0, color: Colors.white, offset: Offset(-3.0, 0.0)),
+                          Shadow(blurRadius: 4.0, color: Colors.white, offset: Offset(0.0, 3.0)),
+                          Shadow(blurRadius: 4.0, color: Colors.white, offset: Offset(0.0, -3.0)),
+                          Shadow(blurRadius: 6.0, color: Colors.white.withOpacity(0.6), offset: Offset.zero),
                         ],
                         color: accentColor,
                         fontSize: 42.0,
@@ -130,18 +107,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: _email,
                       obscureText: false,
                       autofocus: true,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w700,
-                      ),
+                      style: const TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w700),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: AppLocalizations.of(context)!.textEmail,
-                        labelStyle: TextStyle(
-                          color: accentColor,
-                          fontWeight: FontWeight.w500,
-                        ),
+                        labelStyle: TextStyle(color: accentColor, fontWeight: FontWeight.w500),
                       ),
                     ),
                     const SizedBox(height: Dimens.doublePaddingVertical),
@@ -149,30 +119,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: _password,
                       obscureText: _isObscured,
                       obscuringCharacter: "☺",
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: const TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w500),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: AppLocalizations.of(context)!.textPassword,
-                        labelStyle: TextStyle(
-                          color: accentColor,
-                          fontWeight: FontWeight.w500,
-                        ),
+                        labelStyle: TextStyle(color: accentColor, fontWeight: FontWeight.w500),
                         suffixIcon: IconButton(
                           padding: const EdgeInsets.all(0),
                           iconSize: 20.0,
                           icon: _isObscured
-                              ? const Icon(
-                                  Icons.visibility_off,
-                                  color: Colors.grey,
-                                )
-                              : const Icon(
-                                  Icons.visibility,
-                                  color: Colors.black,
-                                ),
+                              ? const Icon(Icons.visibility_off, color: Colors.grey)
+                              : const Icon(Icons.visibility, color: Colors.black),
                           onPressed: () {
                             setState(() {
                               _isObscured = !_isObscured;
@@ -187,14 +144,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       builder: (context, _) {
                         return FilledButton(
                           onPressed: () {
-                            widget.viewModel.login.execute((
-                              _email.value.text,
-                              _password.value.text,
-                            ));
+                            widget.viewModel.login.execute((_email.value.text, _password.value.text));
                           },
-                          child: Text(
-                            AppLocalizations.of(context)!.actionLogin,
-                          ),
+                          child: Text(AppLocalizations.of(context)!.actionLogin),
                         );
                       },
                     ),
@@ -213,10 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: () {
                   context.push(Routes.signup);
                 },
-                child: Text(
-                  AppLocalizations.of(context)!.goSignup,
-                  style: TextStyle(fontWeight: FontWeight.w500),
-                ),
+                child: Text(AppLocalizations.of(context)!.goSignup, style: TextStyle(fontWeight: FontWeight.w500)),
               ),
             ),
           ),
@@ -229,6 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (widget.viewModel.login.completed) {
       widget.viewModel.login.clearResult();
       context.go(Routes.home);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Login successful!")));
     }
 
     if (widget.viewModel.login.error) {
@@ -238,11 +188,9 @@ class _LoginScreenState extends State<LoginScreen> {
           content: Text(AppLocalizations.of(context)!.errorLogin),
           action: SnackBarAction(
             label: AppLocalizations.of(context)!.errorRetry,
-            onPressed: () => widget.viewModel.login.execute((
-              _email.value.text,
-              _password.value.text,
-            )),
+            onPressed: () => widget.viewModel.login.execute((_email.value.text, _password.value.text)),
           ),
+          duration: Duration(seconds: 3),
         ),
       );
     }
