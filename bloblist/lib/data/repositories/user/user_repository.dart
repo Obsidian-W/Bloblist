@@ -3,10 +3,14 @@
 // found in the LICENSE file.
 
 import '../../../domain/models/user.dart';
+import '../../../domain/models/blob.dart';
 import '../../../utils/result.dart';
 
 /// Data source for user related data
 abstract class UserRepository {
   /// Get current user
   Future<Result<User>> getUser();
+
+  //Get user's blob
+  Future<Result<Blob>> getBlob();
 }

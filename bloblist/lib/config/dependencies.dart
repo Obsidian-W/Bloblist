@@ -6,10 +6,9 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 import '../data/repositories/auth/auth_repository.dart';
-import '../data/repositories/auth/auth_repository_dev.dart';
+import '../data/repositories/auth/auth_repository_local.dart';
 import '../data/repositories/user/user_repository.dart';
 import '../data/repositories/user/user_repository_local.dart';
-import '../data/services/local_data_service.dart';
 
 /// Shared providers for all configurations.
 List<SingleChildWidget> _sharedProviders = [];
@@ -20,12 +19,7 @@ List<SingleChildWidget> _sharedProviders = [];
 List<SingleChildWidget> get providersLocal {
   return [
     ChangeNotifierProvider<AuthRepository>(create: (_) => AuthRepositoryDev()),
-    Provider.value(value: LocalDataService()),
-    Provider(
-      create: (context) =>
-          UserRepositoryLocal(localDataService: context.read())
-              as UserRepository,
-    ),
+    Provider(create: (context) => UserRepositoryLocal() as UserRepository),
     ..._sharedProviders, // Spread operator -> Yields -> Unpacks -> Inserts in another collection
   ];
 }
