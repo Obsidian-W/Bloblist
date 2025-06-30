@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:bloblist/data/repositories/tasks/task_repository.dart';
 import 'package:bloblist/utils/utils.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../../../domain/models/blob.dart';
 import '../../../data/repositories/user/user_repository.dart';
@@ -13,11 +16,13 @@ class HomeViewModel extends ChangeNotifier {
       _taskRepository = taskRepository {
     loadBlob();
     loadTasks();
+    loadTaskJson();
   }
 
   final UserRepository _userRepository;
   final TaskRepository _taskRepository;
   List<Task> tasks = [];
+  List<String> tasksFromJson = []; //All tasks loaded from JSON
   Blob blob = Blob();
   bool _levelUpTriggered = false;
   bool get justLeveledUp => _levelUpTriggered; //For UI to know if the blob just leveled up
@@ -32,6 +37,12 @@ class HomeViewModel extends ChangeNotifier {
     //Only show tasks for today
     tasks = allTasks.where((task) => daysBetween(DateTime.now(), task.date) == 0).toList();
     notifyListeners();
+  }
+
+  Future<void> loadTaskJson() async {
+    final String response = await rootBundle.loadString('assets/tasks.json');
+    final List<dynamic> data = json.decode(response);
+    tasksFromJson = data.map((e) => e['task'] as String).toList();
   }
 
   Future<bool> addTask(String taskName) async {

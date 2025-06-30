@@ -13,9 +13,20 @@ class TodoListView extends StatefulWidget {
 class _TodoListViewState extends State<TodoListView> {
   final TextEditingController _controller = TextEditingController();
 
+  List<String> _allTasksFromJson = []; //While typing, this will hold the filtered tasks
+  List<String> _filteredTasks = []; //While typing, this will hold the filtered tasks
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(_onTextChanged);
+  }
+
   @override
   Widget build(BuildContext context) {
     final vm = context.watch<HomeViewModel>();
+
+    _allTasksFromJson = vm.tasksFromJson; // Get all tasks from JSON
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(16.0, 4.0, 16.0, 0.0),
@@ -40,6 +51,18 @@ class _TodoListViewState extends State<TodoListView> {
               ),
             ],
           ),
+          if (_filteredTasks.isNotEmpty)
+            Container(
+              constraints: BoxConstraints(maxHeight: 200),
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: _filteredTasks.length,
+                itemBuilder: (context, index) {
+                  final suggestion = _filteredTasks[index];
+                  return ListTile(title: Text(suggestion), onTap: () => _selectSuggestion(suggestion));
+                },
+              ),
+            ),
           const SizedBox(height: 16),
           Expanded(
             child: ListView.builder(
@@ -71,6 +94,26 @@ class _TodoListViewState extends State<TodoListView> {
         ],
       ),
     );
+  }
+
+  void _onTextChanged() {
+    final input = _controller.text.toLowerCase();
+    setState(() {
+      if (input.isEmpty) {
+        _filteredTasks = [];
+      } else {
+        _filteredTasks = _allTasksFromJson.where((task) => task.toLowerCase().contains(input)).toList();
+      }
+    });
+  }
+
+  void _selectSuggestion(String suggestion) {
+    _controller.text = suggestion;
+    setState(() {
+      _filteredTasks = [];
+    });
+    // Optionally move cursor to end:
+    _controller.selection = TextSelection.fromPosition(TextPosition(offset: _controller.text.length));
   }
 
   Future<void> _addTask(BuildContext context, HomeViewModel homeViewModel) async {
