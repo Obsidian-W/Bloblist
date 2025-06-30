@@ -74,6 +74,10 @@ class _TodoListViewState extends State<TodoListView> {
   }
 
   Future<void> _addTask(BuildContext context, HomeViewModel homeViewModel) async {
+    if (_controller.text.trim().isEmpty) {
+      //Can't add an empty task
+      return;
+    }
     final success = await homeViewModel.addTask(_controller.text);
     if (!success && context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.alertTodoLimit)));

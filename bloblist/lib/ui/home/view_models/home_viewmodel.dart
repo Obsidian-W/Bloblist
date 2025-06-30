@@ -1,4 +1,5 @@
 import 'package:bloblist/data/repositories/tasks/task_repository.dart';
+import 'package:bloblist/utils/utils.dart';
 import 'package:provider/provider.dart';
 import '../../../domain/models/blob.dart';
 import '../../../data/repositories/user/user_repository.dart';
@@ -10,8 +11,8 @@ class HomeViewModel extends ChangeNotifier {
   HomeViewModel({required UserRepository userRepository, required TaskRepository taskRepository})
     : _userRepository = userRepository,
       _taskRepository = taskRepository {
-    loadTasks();
     loadBlob();
+    loadTasks();
   }
 
   final UserRepository _userRepository;
@@ -27,7 +28,9 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   Future<void> loadTasks() async {
-    tasks = await _taskRepository.loadTasks();
+    List<Task> allTasks = await _taskRepository.loadTasks();
+    //Only show tasks for today
+    tasks = allTasks.where((task) => daysBetween(DateTime.now(), task.date) == 0).toList();
     notifyListeners();
   }
 
