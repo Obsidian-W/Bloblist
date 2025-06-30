@@ -18,7 +18,7 @@ class _TodoListViewState extends State<TodoListView> {
     final vm = context.watch<HomeViewModel>();
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(16.0, 4.0, 16.0, 0.0),
       child: Column(
         children: [
           Row(

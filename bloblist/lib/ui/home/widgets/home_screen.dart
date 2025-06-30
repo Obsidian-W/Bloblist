@@ -35,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
     controller.onModelLoaded.addListener(() {
       debugPrint('model is loaded : ${controller.onModelLoaded.value}');
     });
+
     AudioLogger.logLevel = AudioLogLevel.info;
     _audioPlayer.play(AssetSource('dq_boing.mp3'));
   }
@@ -63,12 +64,12 @@ class _HomeScreenState extends State<HomeScreen> {
     final viewModel = context.watch<HomeViewModel>();
 
     if (viewModel.justLeveledUp) {
-      /*WidgetsBinding.instance.addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         //The current model has no animations, but ideally we had a jump + boing
         //controller.playAnimation(animationName: 'level_up');
-        _audioPlayer.play(AssetSource('assets/dq_boing.mp3'));
-      });*/
-      viewModel.levelUpHandled();
+        _audioPlayer.play(AssetSource('dq_boing.mp3'));
+        viewModel.levelUpHandled();
+      });
     }
 
     return Scaffold(
@@ -87,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     flex: 1,
                     child: LayoutBuilder(
                       builder: (context, constraints) {
-                        final maxHeight = MediaQuery.of(context).size.height / 3;
+                        final maxHeight = MediaQuery.of(context).size.height / 10 * 4; // 40% of the screen height
                         final height = constraints.maxHeight > maxHeight ? maxHeight : constraints.maxHeight;
 
                         return SizedBox(
@@ -116,8 +117,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Container(
                                   padding: const EdgeInsets.all(8.0),
                                   decoration: BoxDecoration(
-                                    color: Colors.deepPurple.withOpacity(0.5),
-                                    borderRadius: BorderRadius.circular(8.0),
+                                    color: Colors.deepPurple.withOpacity(0.33),
+                                    borderRadius: BorderRadius.circular(4.0),
                                   ),
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           color: Colors.white,
                                           fontFamily: "GuavaCandy",
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 16.0,
+                                          fontSize: 17.0,
                                         ),
                                       ),
                                       Text(
@@ -162,7 +163,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                     ),
                   ),
-                  const SizedBox(height: Dimens.paddingVertical),
                   Expanded(
                     child: TodoListView(), // or your ListView widget here
                   ),

@@ -67,10 +67,9 @@ class HomeViewModel extends ChangeNotifier {
     }
 
     //Play the animation only once
-    /*
     if (leveledUp && !_levelUpTriggered) {
       _levelUpTriggered = true;
-    }*/
+    }
 
     await _userRepository.saveBlob(blob: blob);
     notifyListeners();
